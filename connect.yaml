@@ -1,15 +1,15 @@
 deployAs:
-  - name: sellertools
+  - name: clinictools
     applicationType: merchant-center-custom-application
     configuration:
       standardConfiguration:
         - key: CUSTOM_APPLICATION_ID
-          description: Sellertools Custom Application ID
+          description: Clinictools Custom Application ID
           required: true
         - key: ENTRY_POINT_URI_PATH
-          description: Sellertools Application entry point URI path
+          description: Clinictools Application entry point URI path
           required: true
-          default: "sellertools"
+          default: "clinictools"
         - key: CLOUD_IDENTIFIER
           description: one of the following gcp-us, gcp-eu, aws-us, aws-eu
           required: true
