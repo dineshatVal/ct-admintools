@@ -75,12 +75,12 @@ const AdminDashboard = () => {
           icon={<GearIcon size="big" color="surface" />}
           onClick={handleManageFeatureFlags}
         /> */}
-        <DashboardCard
+        {/* <DashboardCard
           title="Manage contentools"
           icon={<FrontendStudioIcon size="big" color="surface" />}
           onClick={handleManageContentools}
           checkVisibility={checkHealthCms}
-        />
+        /> */}
       </div>
     </div>
   );
