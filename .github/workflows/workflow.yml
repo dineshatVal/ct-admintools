@@ -1,0 +1,92 @@
+name: Tag Push Trigger
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  update-and-publish-connector:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      - name: Install commercetools CLI
+        run: npm install -g @commercetools/cli
+        
+      - name: Login to commercetools CLI
+        run: |
+          commercetools auth login \
+            --client-credentials \
+            --client-id ${{ vars.CTP_CLIENT_ID }} \
+            --client-secret ${{ secrets.CTP_CLIENT_SECRET }} \
+            --region ${{ vars.CTP_REGION }} \
+            --project-key ${{ vars.CTP_PROJECT_KEY }}
+            
+      - name: Update connector with current tag
+        run: |
+          commercetools connect connectorstaged update \
+            --id ${{ vars.CONNECTOR_ID }} \
+            --repository-tag ${{ github.ref_name }}
+
+      - name: Generate deployment key
+        id: deployment-key
+        run: |
+          LATEST_TAG=${{ github.ref_name }}
+          # Replace invalid characters (dots, slashes, etc.) with hyphens
+          CLEAN_TAG=$(echo "$LATEST_TAG" | sed 's/[^a-zA-Z0-9_-]/-/g')
+          DEPLOYMENT_KEY="admintools-$CLEAN_TAG"
+          echo "key=$DEPLOYMENT_KEY" >> $GITHUB_OUTPUT
+          echo "Generated deployment key: $DEPLOYMENT_KEY"
+            
+      - name: Create preview deployment
+        run: |
+          # Build the command arguments array
+          ARGS=(
+            "commercetools" "connect" "connectorstaged" "preview"
+            "--id" "${{ vars.CONNECTOR_ID }}"
+            "--deployment-key" "${{ steps.deployment-key.outputs.key }}"
+            "--region" "${{ vars.CTP_REGION }}"
+            "--configuration" "sellertools.MC_TEAM_NAME=${{ vars.APP_MC_TEAM_NAME }}"
+            "--configuration" "sellertools.CUSTOM_APPLICATION_ID=${{ vars.SELLERTOOLS_CUSTOM_APPLICATION_ID }}"
+            "--configuration" "sellertools.ENTRY_POINT_URI_PATH=${{ vars.SELLERTOOLS_ENTRY_POINT_URI_PATH }}"
+            "--configuration" "sellertools.CLOUD_IDENTIFIER=${{ vars.SELLERTOOLS_CLOUD_IDENTIFIER }}"
+            "--configuration" "cms.STORAGE_TYPE=${{ vars.CMS_STORAGE_TYPE }}"
+            "--configuration" "cms.GCP_BUCKET_NAME=${{ vars.CMS_GCP_BUCKET_NAME }}"
+            "--configuration" "cms.GCP_PROJECT_ID=${{ vars.CMS_GCP_PROJECT_ID }}"
+            "--configuration" "cms.GCP_CLIENT_EMAIL=${{ vars.CMS_GCP_CLIENT_EMAIL }}"
+            "--configuration" "chat.AI_PROVIDER=${{ vars.CHAT_AI_PROVIDER }}"
+            "--configuration" "chat.AI_MODEL=${{ vars.CHAT_AI_MODEL }}"
+            "--configuration" "CTP_CLIENT_SECRET=${{ secrets.CTP_CLIENT_SECRET }}"
+            "--configuration" "CTP_PROJECT_KEY=${{ vars.CTP_PROJECT_KEY }}"
+            "--configuration" "CTP_CLIENT_ID=${{ vars.CTP_CLIENT_ID }}"
+            "--configuration" "CTP_SCOPE=${{ vars.CTP_SCOPE }}"
+            "--configuration" "JWT_SECRET=${{ secrets.JWT_SECRET }}"
+            "--configuration" "CTP_AUTH_URL=${{ vars.CTP_AUTH_URL }}"
+            "--configuration" "CTP_API_URL=${{ vars.CTP_API_URL }}"
+          )
+          
+          # Add API keys only if they exist
+          if [ -n "${{ secrets.CHAT_ANTHROPIC_API_KEY }}" ]; then
+            ARGS+=("--configuration" "chat.ANTHROPIC_API_KEY=${{ secrets.CHAT_ANTHROPIC_API_KEY }}")
+          fi
+          
+          if [ -n "${{ secrets.CHAT_OPENAI_API_KEY }}" ]; then
+            ARGS+=("--configuration" "chat.OPENAI_API_KEY=${{ secrets.CHAT_OPENAI_API_KEY }}")
+          fi
+          
+          "${ARGS[@]}"
+            
+      - name: Output deployment information
+        run: |
+          echo "Preview deployment created successfully!"
+          echo "Deployment key: ${{ steps.deployment-key.outputs.key }}"
+          echo "Region: ${{ vars.CTP_REGION }}"

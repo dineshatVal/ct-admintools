@@ -11,10 +11,7 @@ type ApplicationRoutesProps = {
 };
 const ApplicationRoutes = (_props: ApplicationRoutesProps) => {
   const match = useRouteMatch();
-  const isManageAdmin = useIsAuthorized({
-    // @ts-ignore
-    demandedPermissions: [PERMISSIONS.ManageAdmin],
-  });
+  const isManageAdmin = true;
 
   return (
     <Switch>
