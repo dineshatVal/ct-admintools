@@ -1,0 +1,257 @@
+.container {
+  padding: 20px;
+  max-width: 100%;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  min-height: 300px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  min-height: 300px;
+  text-align: center;
+}
+
+.tableContainer {
+  width: 100%;
+  margin-top: 8px;
+  position: relative;
+  overflow: auto;
+}
+
+.searchOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  gap: 1rem;
+}
+
+.tableSection {
+  flex: 1;
+  min-width: 48%;
+  max-width: 49%;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  padding: 16px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.tableContainer :global(.ReactVirtualized__Table__rowColumn) {
+  padding: 0 15px;
+}
+
+.refreshButton {
+  margin-left: auto;
+}
+
+.imageCell {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  position: relative;
+}
+
+.debugInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 8px;
+  padding: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  z-index: 2;
+}
+
+.productImage {
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.checkboxLabelHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxVisual {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+  background-color: white;
+}
+
+.checkboxVisual:hover {
+  border-color: #1a78e6;
+}
+
+.checkboxChecked {
+  width: 14px;
+  height: 14px;
+  background-color: #1a78e6;
+  border-radius: 2px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-l);
+  padding-bottom: var(--spacing-m);
+  border-bottom: 1px solid var(--color-neutral-60);
+}
+
+.storeKeyHighlight {
+  font-weight: bold;
+  color: var(--color-primary);
+  padding: 0 4px;
+}
+
+.actionButtonContainer {
+  margin-top: var(--spacing-s);
+}
+
+.sectionTitle {
+  margin-bottom: var(--spacing-s);
+}
+
+.customMoneyInput {
+  width: 200px;
+}
+
+.moneyInputField {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-neutral-60);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.moneyInputField:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.imagePreviewContainer {
+  margin-top: var(--spacing-s);
+}
+
+.imagePreview {
+  margin-top: var(--spacing-xs);
+  max-width: 250px;
+  max-height: 250px;
+  border: 1px solid var(--color-neutral-60);
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagePreview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.searchContainer {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.searchContainer > form {
+  flex: 1;
+  margin: 0;
+}
+
+.searchPlaceholder {
+  height: 60px; /* Match the height of the search container */
+}
+
+/* Add a bit of spacing for the store products section to align with master section */
+.tableSection + .tableSection {
+  padding-top: 8px;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add any additional styles below */ 

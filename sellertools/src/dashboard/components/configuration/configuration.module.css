@@ -1,0 +1,56 @@
+.configurationContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-l);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-l);
+}
+
+.title {
+  margin: 0;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.sectionTitle {
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-m);
+  font-weight: bold;
+}
+
+.addressGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-m);
+}
+
+.streetNumberField {
+  grid-column: 1 / span 1;
+}
+
+.streetField {
+  grid-column: 2 / span 1;
+}
+
+.hoursContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-m);
+}
+
+.saveButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-xl);
+  align-items: center;
+  gap: var(--spacing-s);
+} 

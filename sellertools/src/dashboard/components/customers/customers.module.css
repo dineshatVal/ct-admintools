@@ -1,0 +1,454 @@
+.customersContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing-l);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-l);
+  padding-bottom: var(--spacing-m);
+  border-bottom: 1px solid var(--color-neutral-60);
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  gap: var(--spacing-m);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-6);
+  border: 1px solid var(--color-neutral-60);
+}
+
+.detailSection {
+  margin-bottom: var(--spacing-s);
+  min-width: 200px;
+}
+
+.storeKeyHighlight {
+  font-weight: bold;
+  color: var(--color-primary);
+  padding: 0 4px;
+}
+
+.tableContainer {
+  width: 100%;
+  border-radius: var(--border-radius-6);
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: var(--spacing-m);
+  position: relative;
+}
+
+.tableContainer [data-testid="data-table-header"] {
+  background-color: var(--color-neutral-90);
+}
+
+.tableContainer [data-testid="data-table-row"] {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tableContainer [data-testid="data-table-row"]:hover {
+  background-color: var(--color-neutral-95);
+}
+
+.overlayLoading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.sectionDivider {
+  margin: var(--spacing-m) 0 var(--spacing-xs);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-neutral-90);
+}
+
+.sectionHeader {
+  font-size: 18px;
+  margin-left: 6px;
+}
+
+.detailLabel {
+  margin-bottom: 6px;
+}
+
+.detailValue {
+  font-size: 13px;
+  color: var(--color-neutral-40);
+}
+
+/* Add these styles for the customer details modal grid layout */
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-m);
+  width: 100%;
+}
+
+.addressesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-m);
+}
+
+.addressCard {
+  padding: var(--spacing-m);
+  height: 100%;
+  border-left: 4px solid var(--color-neutral-60);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-xs);
+}
+
+.detailLabel {
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-neutral-60);
+}
+
+.detailValue {
+  word-break: break-word;
+}
+
+/* Order card styles */
+.orderCard {
+  padding: var(--spacing-m);
+  height: 100%;
+  border-left: 4px solid var(--color-primary-40);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.orderStatus {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.statusOpen {
+  background-color: #e6f7ff;
+  color: #0070cc;
+  border: 1px solid #0070cc;
+}
+
+.statusConfirmed {
+  background-color: #e6f7ee;
+  color: #00875a;
+  border: 1px solid #00875a;
+}
+
+.statusComplete {
+  background-color: #e3fcef;
+  color: #006644;
+  border: 1px solid #006644;
+}
+
+.statusCancelled {
+  background-color: #ffebe6;
+  color: #bf2600;
+  border: 1px solid #bf2600;
+}
+
+.centerLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-l);
+  gap: var(--spacing-m);
+}
+
+.emptyMessage {
+  padding: var(--spacing-m);
+  text-align: center;
+  color: var(--color-neutral-60);
+}
+
+/* Target the specific button classes ONLY in customer details modal */
+/* These selectors were previously hiding all button text */
+:global([data-testid="customer-details-modal"]) :global(.css-dq4vwv-PageHeader) :global(.css-l5nm51-getStyles),
+:global([data-testid="customer-details-modal"]) :global(.css-l5nm51-getStyles) {
+  display: none !important;
+}
+
+/* No longer needed */
+/* :global([data-testid="customer-details-modal"]) :global(.css-d4u93v-Button-normalizedButtonStyles-AccessibleButton-containerStyles-containerStyles-getThemeStyles-getStateStyles-getSizeStyles-getToneStyles),
+:global([data-testid="customer-details-modal"]) :global(.css-1bybo6f-Button-normalizedButtonStyles-AccessibleButton-getSizeStyles-baseStyles-getButtonStyles),
+:global([data-testid="customer-details-modal"]) :global(.css-14z2hc4-getStyles) {
+  display: none !important;
+} */
+
+/* Keep our existing selectors as well for redundancy */
+:global([data-testid="customer-details-modal"]) :global(.form-button-wrapper) {
+  display: none !important;
+}
+
+:global([data-testid="customer-details-modal"]) :global(.modal-page-footer) {
+  display: none !important;
+}
+
+:global([data-testid="customer-details-modal"]) :global(.form-modal-controls) {
+  display: none !important;
+}
+
+:global([data-testid="customer-details-modal"]) :global(.modal-page-content) {
+  padding-bottom: 0 !important;
+}
+
+.link {
+  cursor: pointer;
+}
+/* Remove custom close button styles */
+
+/* Pet-related styles */
+.petCard {
+  margin-bottom: 16px;
+  border-radius: 6px;
+  background-color: var(--color-neutral-95);
+}
+
+.petInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.petInfoGrid > div {
+  margin-bottom: 8px;
+}
+
+.medicalCard {
+  background-color: var(--color-neutral-98);
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.petsSection {
+  margin-top: 16px;
+}
+
+.petsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.petsDetailGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.petLoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* Custom collapsible styles */
+.collapsibleSection {
+  border: 1px solid var(--color-neutral-90);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.collapsibleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: var(--color-neutral-98);
+  cursor: pointer;
+}
+
+.collapsibleHeader:hover {
+  background-color: var(--color-neutral-95);
+}
+
+.collapsibleContent {
+  padding: 16px;
+  background-color: var(--color-neutral-100);
+}
+
+.petNotes {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: var(--color-neutral-98);
+  border-left: 3px solid var(--color-neutral-60);
+}
+
+.genderBadge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  text-transform: capitalize;
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+.male {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #1565c0;
+}
+
+.female {
+  background-color: #fce4ec;
+  color: #c2185b;
+  border: 1px solid #c2185b;
+}
+
+/* Enhanced Pet Card Styles */
+.petCardExpanded {
+  margin-bottom: 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.petCardHeader {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-neutral-90);
+  background-color: var(--color-neutral-95);
+}
+
+.petCardContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+@media (min-width: 900px) {
+  .petCardContent {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.petIdentifier {
+  margin-left: 10px;
+  color: var(--color-neutral-40);
+}
+
+.petKey {
+  font-family: monospace;
+  background-color: var(--color-neutral-90);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.petDetailsSection, 
+.petMedicalSection {
+  width: 100%;
+}
+
+.petDetailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.petDetailItem {
+  margin-bottom: 8px;
+}
+
+.vaccinationsGrid, 
+.prescriptionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Update existing petNotes for better styling */
+.petNotes {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: var(--color-neutral-98);
+  border-left: 3px solid var(--color-neutral-60);
+}
+
+.medicalCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.statusBadge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.statusActive {
+  background-color: #e3fcef;
+  color: #006644;
+  border: 1px solid #006644;
+}
+
+.statusInactive {
+  background-color: #ffebe6;
+  color: #bf2600;
+  border: 1px solid #bf2600;
+}
+
+.authorizationInfo {
+  margin-top: 4px;
+  padding: 4px 0;
+  border-top: 1px dotted var(--color-neutral-90);
+}
+
+.medicalNotes {
+  margin-top: 6px;
+  padding: 6px;
+  background-color: var(--color-neutral-95);
+  border-radius: 4px;
+  border-left: 2px solid var(--color-neutral-60);
+  font-style: italic;
+} 

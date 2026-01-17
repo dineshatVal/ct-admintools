@@ -1,0 +1,28 @@
+yarn run v1.22.22
+$ concurrently -k "tsc --watch" "nodemon -q build/index.js"
+[0] [2J[3J[H2:34:39 PM - Starting compilation in watch mode...
+[0] 
+[1] [32minfo[39m:     AI model initialized with provider: anthropic, model: claude-3-7-sonnet-20250219
+[1] [32minfo[39m:     AI Model successfully initialized
+[1] [32minfo[39m:     ⚡️ Service application listening on port 8080
+[0] 
+[0] 2:34:40 PM - Found 0 errors. Watching for file changes.
+[1] [32minfo[39m:     AI model initialized with provider: anthropic, model: claude-3-7-sonnet-20250219
+[1] [32minfo[39m:     AI Model successfully initialized
+[1] [32minfo[39m:     ⚡️ Service application listening on port 8080
+[0] [2J[3J[H2:34:44 PM - File change detected. Starting incremental compilation...
+[0] 
+[0] 
+[0] 2:34:45 PM - Found 0 errors. Watching for file changes.
+[1] [32minfo[39m:     AI model initialized with provider: anthropic, model: claude-3-7-sonnet-20250219
+[1] [32minfo[39m:     AI Model successfully initialized
+[1] [32minfo[39m:     ⚡️ Service application listening on port 8080
+[1] [32minfo[39m:     Checking origin: http://localhost:3001 with domain: localhost:3001
+[1] [32minfo[39m:     Checking origin: http://localhost:3001 with domain: localhost:3001
+[1] [32minfo[39m:     Checking origin: http://localhost:3001 with domain: localhost:3001
+[1] [32minfo[39m:     Checking origin: http://localhost:3001 with domain: localhost:3001
+[1] [32minfo[39m:     Checking origin: http://localhost:3001 with domain: localhost:3001
+[1] [32minfo[39m:     Checking origin: http://localhost:3001 with domain: localhost:3001
+[1] nodemon -q build/index.js exited with code 130
+--> Sending SIGTERM to other processes..
+[0] tsc --watch exited with code SIGINT

@@ -1,0 +1,3 @@
+# Temporary bundler directories
+/temp/ 
+.env.local

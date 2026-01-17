@@ -1,0 +1,191 @@
+.container {
+  padding: 2rem;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 1400px) {
+  .container {
+    padding: 1rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1400px) {
+  .header {
+    margin-bottom: 1rem;
+  }
+}
+
+.storeKeyHighlight {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Search container styles */
+.searchContainer {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.searchContainer > form {
+  flex: 1;
+  margin: 0;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  gap: 1rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  overflow-y: auto;
+  width: 100%;
+  position: relative;
+  min-width: 0;
+  display: block;
+}
+
+/* Search overlay styles */
+.searchOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  gap: 1rem;
+}
+
+/* Apply width styles to the data table */
+.tableContainer > div {
+  width: 100%;
+}
+
+.tableContainer table {
+  width: 100%;
+  min-width: 100%;
+  table-layout: fixed;
+}
+
+/* Force table to fill the container width */
+.tableContainer table,
+.tableContainer th,
+.tableContainer td {
+  box-sizing: border-box;
+}
+
+/* Ensure cells don't collapse */
+.tableContainer td {
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fix header styling */
+.tableContainer th {
+  white-space: nowrap;
+}
+
+/* Compact styling for smaller screens */
+@media (max-width: 1400px) {
+  .tableContainer th,
+  .tableContainer td {
+    padding: 0.5rem 0.3rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Remove any display: table properties that might cause misalignment */
+.tableContainer thead tr,
+.tableContainer tbody tr {
+  width: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.productImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+@media (max-width: 1400px) {
+  .productImage {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.priceInputContainer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+@media (max-width: 1400px) {
+  .priceInputContainer {
+    gap: 0.25rem;
+  }
+}
+
+.priceInput {
+  width: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 1400px) {
+  .priceInput {
+    width: 80px;
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+}
+
+.priceInput:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.tableFooter {
+  padding: 10px 16px;
+  border-top: 1px solid #e0e0e0;
+  text-align: right;
+  background-color: #f9f9f9;
+} 

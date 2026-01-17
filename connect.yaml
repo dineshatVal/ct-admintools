@@ -1,0 +1,99 @@
+deployAs:
+  - name: sellertools
+    applicationType: merchant-center-custom-application
+    configuration:
+      standardConfiguration:
+        - key: CUSTOM_APPLICATION_ID
+          description: Sellertools Custom Application ID
+          required: true
+        - key: ENTRY_POINT_URI_PATH
+          description: Sellertools Application entry point URI path
+          required: true
+          default: "sellertools"
+        - key: CLOUD_IDENTIFIER
+          description: one of the following gcp-us, gcp-eu, aws-us, aws-eu
+          required: true
+          default: "gcp-us"
+        - key: ASSOCIATE_ROLE
+          description: Associate Role
+          required: true
+          default: "admin"
+        - key: MC_TEAM_NAME
+          description: Merchant Center Team Name
+          required: true
+          default: "Sellers"
+  - name: chat
+    applicationType: service
+    scripts:
+      postDeploy: node build/connector/post-deploy.js
+    endpoint: /chat
+    configuration:
+      standardConfiguration:
+        - key: AI_PROVIDER
+          description: AI provider to use (anthropic, openai)
+          default: "anthropic"
+          required: true
+        - key: AI_MODEL
+          description: AI model to use
+          default: "claude-3-7-sonnet-20250219"
+          required: true
+        - key: SYSTEM_PROMPT
+          description: System prompt
+          required: false
+      securedConfiguration:
+        - key: ANTHROPIC_API_KEY
+          description: Anthropic API key
+          required: false
+        - key: OPENAI_API_KEY
+          description: OpenAI API key
+          required: false
+  - name: cms
+    applicationType: service
+    scripts:
+      postDeploy: node build/connector/post-deploy.js
+    endpoint: /service
+    configuration:
+      standardConfiguration:
+        - key: STORAGE_TYPE
+          description: Storage type (gcp)
+          required: false
+          default: gcp
+        - key: GCP_BUCKET_NAME
+          description: GCP Bucket Name (only used if STORAGE_TYPE is gcp)
+          required: false
+        - key: GCP_PROJECT_ID
+          description: GCP Project ID (only used if STORAGE_TYPE is gcp)
+          required: false
+        - key: GCP_CLIENT_EMAIL
+          description: GCP Client Email (only used if STORAGE_TYPE is gcp)
+          required: false
+      securedConfiguration:
+        - key: GCP_PRIVATE_KEY
+          description: GCP Private Key (only used if STORAGE_TYPE is gcp)
+          required: false
+inheritAs:
+  configuration:
+    standardConfiguration:
+      - key: CTP_AUTH_URL
+        description: commercetools Composable Commerce auth URL
+        required: true
+      - key: CTP_API_URL
+        description: commercetools Composable Commerce API URL
+        required: true
+        default: "https://api.us-central1.gcp.commercetools.com"
+      - key: CTP_PROJECT_KEY
+        description: commercetools Composable Commerce project key
+        required: true
+      - key: CTP_CLIENT_ID
+        description: commercetools Composable Commerce client ID
+        required: true
+      - key: CTP_SCOPE
+        description: commercetools Composable Commerce client scope
+        required: true
+    securedConfiguration:
+      - key: JWT_SECRET
+        description: JWT secret
+        required: true
+      - key: CTP_CLIENT_SECRET
+        description: commercetools Composable Commerce client secret
+        required: true
