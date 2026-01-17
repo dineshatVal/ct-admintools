@@ -7,6 +7,6 @@ export default defineMessages({
   },
   onboardSeller: {
     id: 'AdminDashboard.onboardSeller',
-    defaultMessage: 'Onboard Seller',
+    defaultMessage: 'Onboard Clinic',
   },
 });

@@ -60,21 +60,21 @@ const AdminDashboard = () => {
           icon={<UsersIcon size="big" color="surface" />}
           onClick={handleOnboardSeller}
         />
-        <DashboardCard
+        {/* <DashboardCard
           title="Manage Invites"
           icon={<MailIcon size="big" color="surface" />}
           onClick={handleManageInvites}
-        />
-        <DashboardCard
+        /> */}
+        {/* <DashboardCard
           title="Manage Sellertools"
           icon={<GearIcon size="big" color="surface" />}
           onClick={handleManageSellertools}
-        />
-        <DashboardCard
+        /> */}
+        {/* <DashboardCard
           title="Manage Feature Flags"
           icon={<GearIcon size="big" color="surface" />}
           onClick={handleManageFeatureFlags}
-        />
+        /> */}
         <DashboardCard
           title="Manage contentools"
           icon={<FrontendStudioIcon size="big" color="surface" />}

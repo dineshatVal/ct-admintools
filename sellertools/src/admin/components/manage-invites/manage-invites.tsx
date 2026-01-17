@@ -98,8 +98,8 @@ const ManageInvites: React.FC = () => {
                 name="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                title="Seller Email Address"
-                placeholder="Enter seller email address"
+                title="Clinic Email Address"
+                placeholder="Enter clinic email address"
                 horizontalConstraint={16}
                 isRequired
               />

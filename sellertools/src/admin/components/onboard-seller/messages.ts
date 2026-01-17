@@ -3,12 +3,12 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'OnboardSeller.title',
-    defaultMessage: 'Onboard New Seller',
+    defaultMessage: 'Onboard New Clinic',
   },
   subtitle: {
     id: 'OnboardSeller.subtitle',
     defaultMessage:
-      'Create a new seller account with business unit, store, and distribution channel',
+      'Create a new clinic',
   },
   backToAdmin: {
     id: 'OnboardSeller.backToAdmin',
@@ -16,19 +16,19 @@ export default defineMessages({
   },
   companyName: {
     id: 'OnboardSeller.companyName',
-    defaultMessage: 'Company Name',
+    defaultMessage: 'Clinic Name',
   },
   firstName: {
     id: 'OnboardSeller.firstName',
-    defaultMessage: 'First Name',
+    defaultMessage: 'Admin First Name',
   },
   lastName: {
     id: 'OnboardSeller.lastName',
-    defaultMessage: 'Last Name',
+    defaultMessage: 'Admin Last Name',
   },
   email: {
     id: 'OnboardSeller.email',
-    defaultMessage: 'Email Address',
+    defaultMessage: 'Clinic/Admin Email Address',
   },
   phoneNumber: {
     id: 'OnboardSeller.phoneNumber',
@@ -36,7 +36,7 @@ export default defineMessages({
   },
   submit: {
     id: 'OnboardSeller.submit',
-    defaultMessage: 'Create Seller',
+    defaultMessage: 'Create Clinic',
   },
   errorMissing: {
     id: 'OnboardSeller.error.missing',
@@ -48,11 +48,11 @@ export default defineMessages({
   },
   success: {
     id: 'OnboardSeller.success',
-    defaultMessage: 'Seller {name} has been successfully onboarded!',
+    defaultMessage: 'Clinic {name} has been successfully onboarded!',
   },
   errorGeneral: {
     id: 'OnboardSeller.error.general',
-    defaultMessage: 'Failed to onboard seller. Please try again.',
+    defaultMessage: 'Failed to onboard clinic. Please try again.',
   },
   invitationSent: {
     id: 'OnboardSeller.invitationSent',
