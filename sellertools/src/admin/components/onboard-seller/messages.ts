@@ -12,7 +12,7 @@ export default defineMessages({
   },
   backToAdmin: {
     id: 'OnboardSeller.backToAdmin',
-    defaultMessage: 'Back to Admin Dashboard',
+    defaultMessage: 'Back',
   },
   companyName: {
     id: 'OnboardSeller.companyName',

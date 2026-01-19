@@ -154,34 +154,8 @@ const OnboardSeller: React.FC = () => {
 
       console.log('✅ Seller account created and verified');
 
-      // Step 2: Create a channel for inventory and product distribution
-      console.log('📺 Step 2: Creating channel...');
-      const channelKey = `${companyKey}-channel`;
-      const channel = await storeManagement.createChannel({
-        key: channelKey,
-        name: [
-          {
-            locale: 'en-US',
-            value: `${companyName} Channel`,
-          },
-        ],
-        description: [
-          {
-            locale: 'en-US',
-            value: `Distribution and supply channel for ${companyName}`,
-          },
-        ],
-        roles: ['InventorySupply', 'ProductDistribution'],
-      });
-
-      if (!channel) {
-        throw new Error('Failed to create channel');
-      }
-
-      console.log('✅ Channel created with both supply and distribution roles');
-
-      // Step 3: Create a store that references the channel for both distribution and supply
-      console.log('🏪 Step 3: Creating store...');
+      // Step 2: Create a store
+      console.log('🏪 Step 2: Creating store...');
       const storeKey = `${companyKey}-store`;
       const store = await storeManagement.createStore({
         key: storeKey,
@@ -191,28 +165,16 @@ const OnboardSeller: React.FC = () => {
             value: `${companyName} Store`,
           },
         ],
-        distributionChannels: [
-          {
-            typeId: 'channel',
-            key: channelKey,
-          },
-        ],
-        supplyChannels: [
-          {
-            typeId: 'channel',
-            key: channelKey,
-          },
-        ],
       });
 
       if (!store) {
         throw new Error('Failed to create store');
       }
 
-      console.log('✅ Store created with distribution and supply channels');
+      console.log('✅ Store created');
 
-      // Step 4: Create product selection and assign to store
-      console.log('📦 Step 4: Creating product selection...');
+      // Step 3: Create product selection and assign to store
+      console.log('📦 Step 3: Creating product selection...');
       const productSelectionKey = `${companyKey}-selection`;
       const productSelection = await storeManagement.createProductSelection(
         {
@@ -223,7 +185,7 @@ const OnboardSeller: React.FC = () => {
               value: `${companyName} Selection`,
             },
           ],
-          mode: 'Individual',
+          mode: 'IndividualExclusion',
         },
         storeKey
       );
@@ -234,8 +196,8 @@ const OnboardSeller: React.FC = () => {
 
       console.log('✅ Product selection created and assigned to store');
 
-      // Step 5: Create business unit with associate and store references
-      console.log('🏢 Step 5: Creating business unit...');
+      // Step 4: Create business unit with associate and store references
+      console.log('🏢 Step 4: Creating business unit...');
       const associateRoleKey = environment?.ASSOCIATE_ROLE;
 
       if (!associateRoleKey) {
@@ -290,8 +252,8 @@ const OnboardSeller: React.FC = () => {
 
       console.log('✅ Business unit created with store assignment');
 
-      // Step 6: Create Merchant Center invitation
-      console.log('📨 Step 6: Creating Merchant Center invitation...');
+      // Step 5: Create Merchant Center invitation
+      console.log('📨 Step 5: Creating Merchant Center invitation...');
       const invitationSuccess =
         await merchantCenterManagement.inviteSellerToMerchantCenter(
           values.email
@@ -326,8 +288,7 @@ const OnboardSeller: React.FC = () => {
       console.log(
         `🏢 Business Unit: ${businessUnit.name} (${businessUnit.key})`
       );
-      console.log(`📺 Channel: ${channel.key} [${channel.roles.join(', ')}]`);
-      console.log(`🏪 Store: ${store.key} (Distribution + Supply)`);
+      console.log(`🏪 Store: ${store.key}`);
       console.log(`📦 Product Selection: ${productSelection.key}`);
       console.log(
         `📨 Merchant Center Invitation: ${
