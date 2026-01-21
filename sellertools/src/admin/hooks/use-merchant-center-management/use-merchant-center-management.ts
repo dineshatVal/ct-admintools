@@ -136,10 +136,17 @@ const useMerchantCenterManagement = (): UseMerchantCenterManagementResult => {
 
   const inviteSellerToMerchantCenter = useCallback(
     async (email: string): Promise<boolean> => {
+      console.log('🔍 Debug: Checking environment variables...');
+      console.log('📋 currentProjectKey:', currentProjectKey);
+      console.log('📋 teamName:', teamName);
+      console.log('📋 environment:', environment);
+      
       if (!currentProjectKey || !teamName) {
-        console.warn(
-          '⚠️ Missing project key or team name for Merchant Center invitation'
+        console.error(
+          '❌ Missing project key or team name for Merchant Center invitation'
         );
+        console.error('currentProjectKey:', currentProjectKey);
+        console.error('teamName:', teamName);
         return false;
       }
 
@@ -155,8 +162,16 @@ const useMerchantCenterManagement = (): UseMerchantCenterManagementResult => {
         // Step 1: Get all user projects (like FetchLoggedInUser does)
         const userProjectsResult = await getUserProjects();
 
+        console.log('📋 User projects result:', userProjectsResult);
+        
+        if (userProjectsResult.error) {
+          console.error('❌ Error fetching user projects:', userProjectsResult.error);
+          throw new Error(`Failed to fetch user projects: ${userProjectsResult.error.message}`);
+        }
+
         if (!userProjectsResult.data?.myProjects?.results) {
-          throw new Error('Failed to fetch user projects');
+          console.error('❌ No project data returned');
+          throw new Error('Failed to fetch user projects - no data returned');
         }
 
         console.log(
@@ -244,13 +259,20 @@ const useMerchantCenterManagement = (): UseMerchantCenterManagementResult => {
         };
 
         console.log('🔍 Step 6.7: Sending Merchant Center invitation...');
-        console.log(invitationDraft);
+        console.log('📤 Invitation draft:', JSON.stringify(invitationDraft, null, 2));
 
         const invitationResult = await sendInvitation({
           variables: {
             draft: invitationDraft,
           },
         });
+
+        console.log('📥 Invitation result:', invitationResult);
+        
+        if (invitationResult.error) {
+          console.error('❌ Invitation mutation error:', invitationResult.error);
+          throw new Error(`Invitation mutation failed: ${invitationResult.error.message}`);
+        }
 
         // Check if we got any response data (invitation was processed)
         if (invitationResult.data?.invite) {
@@ -260,12 +282,23 @@ const useMerchantCenterManagement = (): UseMerchantCenterManagementResult => {
           console.log('✅ Invitation response:', invitationResult.data.invite);
           return true;
         } else {
+          console.error('❌ No invite data in response:', invitationResult);
           throw new Error('Invitation failed - no response data returned');
         }
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : 'Unknown error';
-        console.warn(`⚠️ Merchant Center invitation failed: ${errorMessage}`);
+        console.error(`❌ Merchant Center invitation failed: ${errorMessage}`);
+        console.error('Full error details:', err);
+        
+        // Log additional debugging info
+        if ((err as any).graphQLErrors) {
+          console.error('GraphQL Errors:', (err as any).graphQLErrors);
+        }
+        if ((err as any).networkError) {
+          console.error('Network Error:', (err as any).networkError);
+        }
+        
         setError(err as ApolloError);
         return false;
       } finally {

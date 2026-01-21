@@ -22,6 +22,10 @@ deployAs:
           description: Merchant Center Team Name
           required: true
           default: "Sellers"
+        - key: CUSTOMER_GROUP
+          description: Customer Group Key
+          required: true
+          default: "sellers"
   - name: chat
     applicationType: service
     scripts:

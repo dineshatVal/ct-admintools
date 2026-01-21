@@ -86,8 +86,13 @@ const OnboardSeller: React.FC = () => {
 
   const {
     environment,
-  }: { environment: { CUSTOMER_GROUP: string; ASSOCIATE_ROLE: string } } =
-    useApplicationContext();
+  }: {
+    environment: {
+      CUSTOMER_GROUP: string;
+      ASSOCIATE_ROLE: string;
+      MC_TEAM_NAME: string;
+    };
+  } = useApplicationContext();
 
   // Loading state - true if any of the hooks are loading
   const isLoading =

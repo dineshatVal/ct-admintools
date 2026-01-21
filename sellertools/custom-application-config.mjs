@@ -20,6 +20,7 @@ const config = {
     JWT_TOKEN: '${env:JWT_TOKEN}',
     ASSOCIATE_ROLE: '${env:ASSOCIATE_ROLE}',
     MC_TEAM_NAME: '${env:MC_TEAM_NAME}',
+    CUSTOMER_GROUP: '${env:CUSTOMER_GROUP}',
   },
   headers: {
     csp: {
