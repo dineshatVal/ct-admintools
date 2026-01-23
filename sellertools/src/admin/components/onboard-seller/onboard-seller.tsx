@@ -5,6 +5,8 @@ import { Formik } from 'formik';
 import Spacings from '@commercetools-uikit/spacings';
 import Text from '@commercetools-uikit/text';
 import TextField from '@commercetools-uikit/text-field';
+import SelectField from '@commercetools-uikit/select-field';
+import CheckboxInput from '@commercetools-uikit/checkbox-input';
 import PrimaryButton from '@commercetools-uikit/primary-button';
 import Card from '@commercetools-uikit/card';
 import { useShowNotification } from '@commercetools-frontend/actions-global';
@@ -18,56 +20,99 @@ import styles from './onboard-seller.module.css';
 import { useApplicationContext } from '@commercetools-frontend/application-shell-connectors';
 
 type TFormValues = {
-  companyName: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
+  // Clinic Info
+  clinicName: string;
+  websiteUrl: string;
+  practiceType: string;
+  // Contact Info
+  address: string;
+  city: string;
+  zipCode: string;
+  state: string;
+  primaryContactName: string;
+  primaryContactEmail: string;
+  primaryPhoneNumber: string;
+  primaryPhoneSms: boolean;
+  secondaryContactName: string;
+  secondaryContactEmail: string;
+  secondaryPhoneNumber: string;
+  secondaryPhoneSms: boolean;
+  prescriptionEmail: string;
+  faxNumber: string;
+  billingPhoneNumber: string;
+  billingPhoneSms: boolean;
+  // Billing Info
+  taxId: string;
+  debtorNumber: string;
+  resellerCertificate: string;
+  // Social Network Links
+  facebook: string;
+  instagram: string;
+  youtube: string;
+  linkedin: string;
+  x: string;
 };
 
 type TFieldErrors = Record<string, boolean>;
 
 type TFormErrors = {
-  companyName?: TFieldErrors;
-  firstName?: TFieldErrors;
-  lastName?: TFieldErrors;
-  email?: TFieldErrors;
-  phoneNumber?: TFieldErrors;
+  clinicName?: TFieldErrors;
+  websiteUrl?: TFieldErrors;
+  practiceType?: TFieldErrors;
+  address?: TFieldErrors;
+  city?: TFieldErrors;
+  zipCode?: TFieldErrors;
+  state?: TFieldErrors;
+  primaryContactName?: TFieldErrors;
+  primaryContactEmail?: TFieldErrors;
+  primaryPhoneNumber?: TFieldErrors;
+  secondaryContactName?: TFieldErrors;
+  secondaryContactEmail?: TFieldErrors;
+  secondaryPhoneNumber?: TFieldErrors;
+  prescriptionEmail?: TFieldErrors;
+  faxNumber?: TFieldErrors;
+  billingPhoneNumber?: TFieldErrors;
+  taxId?: TFieldErrors;
+  debtorNumber?: TFieldErrors;
+  resellerCertificate?: TFieldErrors;
+  facebook?: TFieldErrors;
+  instagram?: TFieldErrors;
+  youtube?: TFieldErrors;
+  linkedin?: TFieldErrors;
+  x?: TFieldErrors;
 };
 
 const validate = (values: TFormValues): TFormErrors => {
   const errors: TFormErrors = {};
 
-  // Required field validation
-  if (!values.companyName?.trim()) {
-    errors.companyName = { missing: true };
-  }
-  if (!values.firstName?.trim()) {
-    errors.firstName = { missing: true };
-  }
-  if (!values.lastName?.trim()) {
-    errors.lastName = { missing: true };
-  }
-  if (!values.email?.trim()) {
-    errors.email = { missing: true };
+  // Required field validation - Clinic Info
+  if (!values.clinicName?.trim()) {
+    errors.clinicName = { missing: true };
   }
 
   // Email validation - only validate format if email is provided
   if (
-    values.email &&
-    values.email.trim() !== '' &&
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
+    values.primaryContactEmail &&
+    values.primaryContactEmail.trim() !== '' &&
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.primaryContactEmail)
   ) {
-    errors.email = { invalid: true };
+    errors.primaryContactEmail = { invalid: true };
   }
 
-  // Phone Number validation - only validate format if phone is provided
   if (
-    values.phoneNumber &&
-    values.phoneNumber.trim() !== '' &&
-    !/^\+?[\d\s\-\(\)]+$/.test(values.phoneNumber)
+    values.secondaryContactEmail &&
+    values.secondaryContactEmail.trim() !== '' &&
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.secondaryContactEmail)
   ) {
-    errors.phoneNumber = { invalid: true };
+    errors.secondaryContactEmail = { invalid: true };
+  }
+
+  if (
+    values.prescriptionEmail &&
+    values.prescriptionEmail.trim() !== '' &&
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.prescriptionEmail)
+  ) {
+    errors.prescriptionEmail = { invalid: true };
   }
 
   return errors;
@@ -375,93 +420,376 @@ const OnboardSeller: React.FC = () => {
           <Spacings.Stack scale="l">
             <Formik
               initialValues={{
-                companyName: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-                phoneNumber: '',
+                clinicName: '',
+                websiteUrl: '',
+                practiceType: '',
+                address: '',
+                city: '',
+                zipCode: '',
+                state: '',
+                primaryContactName: '',
+                primaryContactEmail: '',
+                primaryPhoneNumber: '',
+                primaryPhoneSms: false,
+                secondaryContactName: '',
+                secondaryContactEmail: '',
+                secondaryPhoneNumber: '',
+                secondaryPhoneSms: false,
+                prescriptionEmail: '',
+                faxNumber: '',
+                billingPhoneNumber: '',
+                billingPhoneSms: false,
+                taxId: '',
+                debtorNumber: '',
+                resellerCertificate: '',
+                facebook: '',
+                instagram: '',
+                youtube: '',
+                linkedin: '',
+                x: '',
               }}
               validate={validate}
               onSubmit={handleSubmit}
             >
               {(formikProps) => (
                 <form onSubmit={formikProps.handleSubmit}>
-                  <Spacings.Stack scale="m">
-                    <TextField
-                      name="companyName"
-                      value={formikProps.values.companyName}
-                      onChange={formikProps.handleChange}
-                      onBlur={formikProps.handleBlur}
-                      title={intl.formatMessage(messages.companyName)}
-                      errors={
-                        formikProps.errors
-                          .companyName as unknown as TFieldErrors
-                      }
-                      touched={formikProps.touched.companyName}
-                      renderError={renderError}
-                      horizontalConstraint={16}
-                      isRequired
-                    />
+                  <Spacings.Stack scale="l">
+                    {/* Clinic Info Section */}
+                    <Spacings.Stack scale="m">
+                      <Text.Headline as="h3">Clinic Info</Text.Headline>
+                      <TextField
+                        name="clinicName"
+                        value={formikProps.values.clinicName}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.clinicName)}
+                        errors={formikProps.errors.clinicName as unknown as TFieldErrors}
+                        touched={formikProps.touched.clinicName}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                        isRequired
+                      />
+                      <div className={styles.formRow}>
+                        <TextField
+                          name="websiteUrl"
+                          value={formikProps.values.websiteUrl}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.websiteUrl)}
+                          errors={formikProps.errors.websiteUrl as unknown as TFieldErrors}
+                          touched={formikProps.touched.websiteUrl}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <SelectField
+                          name="practiceType"
+                          value={formikProps.values.practiceType}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.practiceType)}
+                          errors={formikProps.errors.practiceType as unknown as TFieldErrors}
+                          touched={formikProps.touched.practiceType}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                          options={[
+                            { value: 'small-animal', label: 'Small Animal' },
+                            { value: 'large-animal', label: 'Large Animal' },
+                            { value: 'mixed', label: 'Mixed' },
+                            { value: 'exotic', label: 'Exotic' },
+                          ]}
+                        />
+                      </div>
+                    </Spacings.Stack>
 
-                    <TextField
-                      name="firstName"
-                      value={formikProps.values.firstName}
-                      onChange={formikProps.handleChange}
-                      onBlur={formikProps.handleBlur}
-                      title={intl.formatMessage(messages.firstName)}
-                      errors={
-                        formikProps.errors.firstName as unknown as TFieldErrors
-                      }
-                      touched={formikProps.touched.firstName}
-                      renderError={renderError}
-                      horizontalConstraint={16}
-                      isRequired
-                    />
+                    {/* Contact Info Section */}
+                    <Spacings.Stack scale="m">
+                      <Text.Headline as="h3">Contact Info</Text.Headline>
+                      <TextField
+                        name="address"
+                        value={formikProps.values.address}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.address)}
+                        errors={formikProps.errors.address as unknown as TFieldErrors}
+                        touched={formikProps.touched.address}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <div className={styles.formRowThreeColumns}>
+                        <TextField
+                          name="city"
+                          value={formikProps.values.city}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.city)}
+                          errors={formikProps.errors.city as unknown as TFieldErrors}
+                          touched={formikProps.touched.city}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <TextField
+                          name="zipCode"
+                          value={formikProps.values.zipCode}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.zipCode)}
+                          errors={formikProps.errors.zipCode as unknown as TFieldErrors}
+                          touched={formikProps.touched.zipCode}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <SelectField
+                          name="state"
+                          value={formikProps.values.state}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.state)}
+                          errors={formikProps.errors.state as unknown as TFieldErrors}
+                          touched={formikProps.touched.state}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                          options={[
+                            { value: 'CA', label: 'California' },
+                            { value: 'NY', label: 'New York' },
+                            { value: 'TX', label: 'Texas' },
+                            { value: 'FL', label: 'Florida' },
+                          ]}
+                        />
+                      </div>
+                      <div className={styles.formRowThreeColumns}>
+                        <TextField
+                          name="primaryContactName"
+                          value={formikProps.values.primaryContactName}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.primaryContactName)}
+                          errors={formikProps.errors.primaryContactName as unknown as TFieldErrors}
+                          touched={formikProps.touched.primaryContactName}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <TextField
+                          name="primaryContactEmail"
+                          value={formikProps.values.primaryContactEmail}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.primaryContactEmail)}
+                          errors={formikProps.errors.primaryContactEmail as unknown as TFieldErrors}
+                          touched={formikProps.touched.primaryContactEmail}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <div className={styles.phoneFieldWithSms}>
+                          <TextField
+                            name="primaryPhoneNumber"
+                            value={formikProps.values.primaryPhoneNumber}
+                            onChange={formikProps.handleChange}
+                            onBlur={formikProps.handleBlur}
+                            title={intl.formatMessage(messages.primaryPhoneNumber)}
+                            errors={formikProps.errors.primaryPhoneNumber as unknown as TFieldErrors}
+                            touched={formikProps.touched.primaryPhoneNumber}
+                            renderError={renderError}
+                            horizontalConstraint={16}
+                          />
+                          <div className={styles.smsCheckbox}>
+                            <CheckboxInput
+                              isChecked={formikProps.values.primaryPhoneSms}
+                              onChange={(e) => formikProps.setFieldValue('primaryPhoneSms', e.target.checked)}
+                            >
+                              Enable SMS
+                            </CheckboxInput>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.formRowThreeColumns}>
+                        <TextField
+                          name="secondaryContactName"
+                          value={formikProps.values.secondaryContactName}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.secondaryContactName)}
+                          errors={formikProps.errors.secondaryContactName as unknown as TFieldErrors}
+                          touched={formikProps.touched.secondaryContactName}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <TextField
+                          name="secondaryContactEmail"
+                          value={formikProps.values.secondaryContactEmail}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.secondaryContactEmail)}
+                          errors={formikProps.errors.secondaryContactEmail as unknown as TFieldErrors}
+                          touched={formikProps.touched.secondaryContactEmail}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <div className={styles.phoneFieldWithSms}>
+                          <TextField
+                            name="secondaryPhoneNumber"
+                            value={formikProps.values.secondaryPhoneNumber}
+                            onChange={formikProps.handleChange}
+                            onBlur={formikProps.handleBlur}
+                            title={intl.formatMessage(messages.secondaryPhoneNumber)}
+                            errors={formikProps.errors.secondaryPhoneNumber as unknown as TFieldErrors}
+                            touched={formikProps.touched.secondaryPhoneNumber}
+                            renderError={renderError}
+                            horizontalConstraint={16}
+                          />
+                          <div className={styles.smsCheckbox}>
+                            <CheckboxInput
+                              isChecked={formikProps.values.secondaryPhoneSms}
+                              onChange={(e) => formikProps.setFieldValue('secondaryPhoneSms', e.target.checked)}
+                            >
+                              Enable SMS
+                            </CheckboxInput>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.formRowThreeColumns}>
+                        <TextField
+                          name="prescriptionEmail"
+                          value={formikProps.values.prescriptionEmail}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.prescriptionEmail)}
+                          errors={formikProps.errors.prescriptionEmail as unknown as TFieldErrors}
+                          touched={formikProps.touched.prescriptionEmail}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <TextField
+                          name="faxNumber"
+                          value={formikProps.values.faxNumber}
+                          onChange={formikProps.handleChange}
+                          onBlur={formikProps.handleBlur}
+                          title={intl.formatMessage(messages.faxNumber)}
+                          errors={formikProps.errors.faxNumber as unknown as TFieldErrors}
+                          touched={formikProps.touched.faxNumber}
+                          renderError={renderError}
+                          horizontalConstraint={16}
+                        />
+                        <div className={styles.phoneFieldWithSms}>
+                          <TextField
+                            name="billingPhoneNumber"
+                            value={formikProps.values.billingPhoneNumber}
+                            onChange={formikProps.handleChange}
+                            onBlur={formikProps.handleBlur}
+                            title={intl.formatMessage(messages.billingPhoneNumber)}
+                            errors={formikProps.errors.billingPhoneNumber as unknown as TFieldErrors}
+                            touched={formikProps.touched.billingPhoneNumber}
+                            renderError={renderError}
+                            horizontalConstraint={16}
+                          />
+                          <div className={styles.smsCheckbox}>
+                            <CheckboxInput
+                              isChecked={formikProps.values.billingPhoneSms}
+                              onChange={(e) => formikProps.setFieldValue('billingPhoneSms', e.target.checked)}
+                            >
+                              Enable SMS
+                            </CheckboxInput>
+                          </div>
+                        </div>
+                      </div>
+                    </Spacings.Stack>
 
-                    <TextField
-                      name="lastName"
-                      value={formikProps.values.lastName}
-                      onChange={formikProps.handleChange}
-                      onBlur={formikProps.handleBlur}
-                      title={intl.formatMessage(messages.lastName)}
-                      errors={
-                        formikProps.errors.lastName as unknown as TFieldErrors
-                      }
-                      touched={formikProps.touched.lastName}
-                      renderError={renderError}
-                      horizontalConstraint={16}
-                      isRequired
-                    />
+                    {/* Billing Info Section */}
+                    <Spacings.Stack scale="m">
+                      <Text.Headline as="h3">Billing Info</Text.Headline>
+                      <TextField
+                        name="taxId"
+                        value={formikProps.values.taxId}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.taxId)}
+                        errors={formikProps.errors.taxId as unknown as TFieldErrors}
+                        touched={formikProps.touched.taxId}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <TextField
+                        name="debtorNumber"
+                        value={formikProps.values.debtorNumber}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.debtorNumber)}
+                        errors={formikProps.errors.debtorNumber as unknown as TFieldErrors}
+                        touched={formikProps.touched.debtorNumber}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <TextField
+                        name="resellerCertificate"
+                        value={formikProps.values.resellerCertificate}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.resellerCertificate)}
+                        errors={formikProps.errors.resellerCertificate as unknown as TFieldErrors}
+                        touched={formikProps.touched.resellerCertificate}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                    </Spacings.Stack>
 
-                    <TextField
-                      name="email"
-                      value={formikProps.values.email}
-                      onChange={formikProps.handleChange}
-                      onBlur={formikProps.handleBlur}
-                      title={intl.formatMessage(messages.email)}
-                      errors={
-                        formikProps.errors.email as unknown as TFieldErrors
-                      }
-                      touched={formikProps.touched.email}
-                      renderError={renderError}
-                      horizontalConstraint={16}
-                      isRequired
-                    />
-
-                    <TextField
-                      name="phoneNumber"
-                      value={formikProps.values.phoneNumber}
-                      onChange={formikProps.handleChange}
-                      onBlur={formikProps.handleBlur}
-                      title={intl.formatMessage(messages.phoneNumber)}
-                      errors={
-                        formikProps.errors
-                          .phoneNumber as unknown as TFieldErrors
-                      }
-                      touched={formikProps.touched.phoneNumber}
-                      renderError={renderError}
-                      horizontalConstraint={16}
-                    />
+                    {/* Social Network Links Section */}
+                    <Spacings.Stack scale="m">
+                      <Text.Headline as="h3">Social Network Links</Text.Headline>
+                      <TextField
+                        name="facebook"
+                        value={formikProps.values.facebook}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.facebook)}
+                        errors={formikProps.errors.facebook as unknown as TFieldErrors}
+                        touched={formikProps.touched.facebook}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <TextField
+                        name="instagram"
+                        value={formikProps.values.instagram}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.instagram)}
+                        errors={formikProps.errors.instagram as unknown as TFieldErrors}
+                        touched={formikProps.touched.instagram}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <TextField
+                        name="youtube"
+                        value={formikProps.values.youtube}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.youtube)}
+                        errors={formikProps.errors.youtube as unknown as TFieldErrors}
+                        touched={formikProps.touched.youtube}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <TextField
+                        name="linkedin"
+                        value={formikProps.values.linkedin}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.linkedin)}
+                        errors={formikProps.errors.linkedin as unknown as TFieldErrors}
+                        touched={formikProps.touched.linkedin}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                      <TextField
+                        name="x"
+                        value={formikProps.values.x}
+                        onChange={formikProps.handleChange}
+                        onBlur={formikProps.handleBlur}
+                        title={intl.formatMessage(messages.x)}
+                        errors={formikProps.errors.x as unknown as TFieldErrors}
+                        touched={formikProps.touched.x}
+                        renderError={renderError}
+                        horizontalConstraint={16}
+                      />
+                    </Spacings.Stack>
 
                     <div className={styles.buttonsContainer}>
                       <PrimaryButton

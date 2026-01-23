@@ -14,25 +14,105 @@ export default defineMessages({
     id: 'OnboardSeller.backToAdmin',
     defaultMessage: 'Back',
   },
-  companyName: {
-    id: 'OnboardSeller.companyName',
+  // Clinic Info
+  clinicName: {
+    id: 'OnboardSeller.clinicName',
     defaultMessage: 'Clinic Name',
   },
-  firstName: {
-    id: 'OnboardSeller.firstName',
-    defaultMessage: 'Admin First Name',
+  websiteUrl: {
+    id: 'OnboardSeller.websiteUrl',
+    defaultMessage: 'Website URL',
   },
-  lastName: {
-    id: 'OnboardSeller.lastName',
-    defaultMessage: 'Admin Last Name',
+  practiceType: {
+    id: 'OnboardSeller.practiceType',
+    defaultMessage: 'Practice Type',
   },
-  email: {
-    id: 'OnboardSeller.email',
-    defaultMessage: 'Clinic/Admin Email Address',
+  // Contact Info
+  address: {
+    id: 'OnboardSeller.address',
+    defaultMessage: 'Address',
   },
-  phoneNumber: {
-    id: 'OnboardSeller.phoneNumber',
-    defaultMessage: 'Phone Number',
+  city: {
+    id: 'OnboardSeller.city',
+    defaultMessage: 'City',
+  },
+  zipCode: {
+    id: 'OnboardSeller.zipCode',
+    defaultMessage: 'Zip Code',
+  },
+  state: {
+    id: 'OnboardSeller.state',
+    defaultMessage: 'State',
+  },
+  primaryContactName: {
+    id: 'OnboardSeller.primaryContactName',
+    defaultMessage: 'Primary Contact Name',
+  },
+  primaryContactEmail: {
+    id: 'OnboardSeller.primaryContactEmail',
+    defaultMessage: 'Primary Contact Email',
+  },
+  primaryPhoneNumber: {
+    id: 'OnboardSeller.primaryPhoneNumber',
+    defaultMessage: 'Primary Phone Number',
+  },
+  secondaryContactName: {
+    id: 'OnboardSeller.secondaryContactName',
+    defaultMessage: 'Secondary Contact Name',
+  },
+  secondaryContactEmail: {
+    id: 'OnboardSeller.secondaryContactEmail',
+    defaultMessage: 'Secondary Contact Email',
+  },
+  secondaryPhoneNumber: {
+    id: 'OnboardSeller.secondaryPhoneNumber',
+    defaultMessage: 'Secondary Phone Number',
+  },
+  prescriptionEmail: {
+    id: 'OnboardSeller.prescriptionEmail',
+    defaultMessage: 'Email for Prescription Notification',
+  },
+  faxNumber: {
+    id: 'OnboardSeller.faxNumber',
+    defaultMessage: 'Fax Number',
+  },
+  billingPhoneNumber: {
+    id: 'OnboardSeller.billingPhoneNumber',
+    defaultMessage: 'Billing Phone Number',
+  },
+  // Billing Info
+  taxId: {
+    id: 'OnboardSeller.taxId',
+    defaultMessage: 'Tax ID',
+  },
+  debtorNumber: {
+    id: 'OnboardSeller.debtorNumber',
+    defaultMessage: 'Debtor Number',
+  },
+  resellerCertificate: {
+    id: 'OnboardSeller.resellerCertificate',
+    defaultMessage: 'Reseller Certificate',
+  },
+  // Social Network Links
+  facebook: {
+    id: 'OnboardSeller.facebook',
+    defaultMessage: 'Facebook',
+  },
+  instagram: {
+    id: 'OnboardSeller.instagram',
+    defaultMessage: 'Instagram',
+  },
+  youtube: {
+    id: 'OnboardSeller.youtube',
+    defaultMessage: 'Youtube',
+  },
+  linkedin: {
+    id: 'OnboardSeller.linkedin',
+    defaultMessage: 'LinkedIn',
+  },
+  x: {
+    id: 'OnboardSeller.x',
+    defaultMessage: 'X',
   },
   submit: {
     id: 'OnboardSeller.submit',
